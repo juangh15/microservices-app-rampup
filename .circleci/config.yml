@@ -26,6 +26,9 @@ jobs:
       - run:
           name: Test
           command: mvn -f ./users-api test
+      - store_artifacts:
+          path: ./users-api/target
+          destination: users-api-artifact
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
