@@ -61,21 +61,21 @@ jobs:
     steps:
       - run:
           name: Get Log Message Processor Script
-          command: mkdir -p ~/artifacts/log-message-processor/ && mv ./log-message-processor/main.py ~/artifacts/log-message-processor/main.py
+          command: mkdir -p ~/project/artifacts/log-message-processor/ && mv ~/project/log-message-processor/main.py ~/project/artifacts/log-message-processor/main.py
       - run:
           name: Get Users API Artifact
-          command: mkdir -p ~/artifacts/users-api/ && mv ./users-api/target/users-api-0.0.1-SNAPSHOT.jar ~/artifacts/users-api/users-api-0.0.1-SNAPSHOT.jar
+          command: mkdir -p ~/project/artifacts/users-api/ && mv ~/project/users-api/target/users-api-0.0.1-SNAPSHOT.jar ~/project/artifacts/users-api/users-api-0.0.1-SNAPSHOT.jar
       - run:
           name: Get Auth API Artifact
-          command: mkdir -p ~/artifacts/auth-api/ && mv ./auth-api/auth-api ~/artifacts/auth-api/auth-api
+          command: mkdir -p ~/project/artifacts/auth-api/ && mv ~/project/auth-api/auth-api ~/project/artifacts/auth-api/auth-api
       - run:
           name: Get ToDos API Artifact
-          command: mkdir -p ~/artifacts/todos-api $$ mv ./todos-api ~/artifacts/todos-api
+          command: mkdir -p ~/project/artifacts/todos-api $$ mv ~/project/todos-api ~/project/artifacts/todos-api
       - run: 
           name: Compress Artifacts
-          command: tar -czvf ~/all_artifacts.tar.gz ~/artifacts
+          command: tar -czvf ~/project/all_artifacts.tar.gz ~/project/artifacts
       - store_artifacts:
-          path: ~/all_artifacts.tar.gz
+          path: ~/project/all_artifacts.tar.gz
           destination: all_artifacts.tar.gz
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
