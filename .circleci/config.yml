@@ -59,6 +59,8 @@ jobs:
     docker:
       - image: cimg/base:edge-20.04
     steps:
+      # Checkout the code as the first step.
+      - checkout
       - run:
           name: Get Log Message Processor Script
           command: mkdir -p /home/circleci/project/artifacts/log-message-processor/ && mv /home/circleci/project/log-message-processor/main.py /home/circleci/project/artifacts/log-message-processor/main.py
