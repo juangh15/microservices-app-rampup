@@ -26,9 +26,9 @@ jobs:
       - run:
           name: Test
           command: mvn -f ./users-api test
-      - store_artifacts:
-          path: ./users-api/target/users-api-0.0.1-SNAPSHOT.jar
-          destination: users-api-artifact
+#      - store_artifacts:
+#          path: ./users-api/target/users-api-0.0.1-SNAPSHOT.jar
+#          destination: users-api-artifact
   build-and-test-auth-api:
     # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -52,15 +52,38 @@ jobs:
       - run:
           name: Go Build
           command: cd ./auth-api && go build
+#      - store_artifacts:
+#          path: ./auth-api/auth-api
+#          destination: auth-api-artifact
+  gather-and-store-artifacts:
+    docker:
+      - image: cimg/base
+    steps:
+      - run:
+          name: Get Log Message Processor Script
+          command: mkdir -p ~/artifacts/log-message-processor/ && mv ./log-message-processor/main.py ~/artifacts/log-message-processor/main.py
+      - run:
+          name: Get Users API Artifact
+          command: mkdir -p ~/artifacts/users-api/ && mv ./users-api/target/users-api-0.0.1-SNAPSHOT.jar ~/artifacts/users-api/users-api-0.0.1-SNAPSHOT.jar
+      - run:
+          name: Get Auth API Artifact
+          command: mkdir -p ~/artifacts/auth-api/ && mv ./auth-api/auth-api ~/artifacts/auth-api/auth-api
+      - run:
+          name: Get ToDos API Artifact
+          command: mkdir -p ~/artifacts/todos-api $$ mv ./todos-api ~/artifacts/todos-api
+      - run: 
+          name: Compress Artifacts
+          command: tar -czvf ~/all_artifacts.tar.gz ~/artifacts
       - store_artifacts:
-          path: ./auth-api/auth-api
-          destination: auth-api-artifact
-
+          path: ~/all_artifacts.tar.gz
+          destination: all_artifacts.tar.gz
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
+      - build-and-test-users-api
       - build-and-test-auth-api
+      - gather-and-store-artifacts
 
