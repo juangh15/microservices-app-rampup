@@ -70,7 +70,7 @@ jobs:
           command: mkdir -p artifacts/todos-api && mv /home/circleci/project/todos-api artifacts/todos-api
       - run: 
           name: Compress Artifacts
-          command: tar -czvf artifacts/log-message-and-todos-artifact.tar.gz artifacts/
+          command: tar -czvf artifacts/log-message-and-todos-artifact.tar.gz artifacts/ --warning=no-file-changed
       - store_artifacts:
           path: artifacts/log-message-and-todos-artifact.tar.gz
           destination: log-message-and-todos-artifact.tar.gz
