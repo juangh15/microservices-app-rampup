@@ -61,21 +61,21 @@ jobs:
     steps:
       - run:
           name: Get Log Message Processor Script
-          command: mkdir -p ~/project/artifacts/log-message-processor/ && mv ~/project/log-message-processor/main.py ~/project/artifacts/log-message-processor/main.py
+          command: mkdir -p /home/circleci/project/artifacts/log-message-processor/ && mv /home/circleci/project/log-message-processor/main.py /home/circleci/project/artifacts/log-message-processor/main.py
       - run:
           name: Get Users API Artifact
-          command: mkdir -p ~/project/artifacts/users-api/ && mv ~/project/users-api/target/users-api-0.0.1-SNAPSHOT.jar ~/project/artifacts/users-api/users-api-0.0.1-SNAPSHOT.jar
+          command: mkdir -p /home/circleci/project/artifacts/users-api/ && mv /home/circleci/project/users-api/target/users-api-0.0.1-SNAPSHOT.jar /home/circleci/project/artifacts/users-api/users-api-0.0.1-SNAPSHOT.jar
       - run:
           name: Get Auth API Artifact
-          command: mkdir -p ~/project/artifacts/auth-api/ && mv ~/project/auth-api/auth-api ~/project/artifacts/auth-api/auth-api
+          command: mkdir -p /home/circleci/project/artifacts/auth-api/ && mv /home/circleci/project/auth-api/auth-api /home/circleci/project/project/artifacts/auth-api/auth-api
       - run:
           name: Get ToDos API Artifact
-          command: mkdir -p ~/project/artifacts/todos-api $$ mv ~/project/todos-api ~/project/artifacts/todos-api
+          command: mkdir -p /home/circleci/project/artifacts/todos-api && mv /home/circleci/project/todos-api /home/circleci/project/project/artifacts/todos-api
       - run: 
           name: Compress Artifacts
-          command: tar -czvf ~/project/all_artifacts.tar.gz ~/project/artifacts
+          command: tar -czvf /home/circleci/project/all_artifacts.tar.gz /home/circleci/project/artifacts
       - store_artifacts:
-          path: ~/project/all_artifacts.tar.gz
+          path: /home/circleci/project/all_artifacts.tar.gz
           destination: all_artifacts.tar.gz
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
