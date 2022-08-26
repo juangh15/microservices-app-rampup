@@ -57,7 +57,7 @@ jobs:
 #          destination: auth-api-artifact
   gather-and-store-artifacts:
     docker:
-      - image: cimg/base
+      - image: cimg/base:edge
     steps:
       - run:
           name: Get Log Message Processor Script
