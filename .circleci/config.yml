@@ -26,13 +26,9 @@ jobs:
       - run:
           name: Test
           command: mvn -f ./users-api test
-      - run:
-          name: Get Users API Artifact
-          command: mkdir -p /home/circleci/artifacts/users-api/ && mv /home/circleci/project/users-api/target/users-api-0.0.1-SNAPSHOT.jar /home/circleci/artifacts/users-api/users-api-0.0.1-SNAPSHOT.jar
-      
-#      - store_artifacts:
-#          path: ./users-api/target/users-api-0.0.1-SNAPSHOT.jar
-#          destination: users-api-artifact
+      - store_artifacts:
+          path: ./users-api/target/users-api-0.0.1-SNAPSHOT.jar
+          destination: users-api-artifact
   build-and-test-auth-api:
     # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -56,12 +52,10 @@ jobs:
       - run:
           name: Go Build
           command: cd ./auth-api && go build
-#      - store_artifacts:
-#          path: ./auth-api/auth-api
-#          destination: auth-api-artifac
-      - run:
-          name: Get Auth API Artifact
-          command: mkdir -p /home/circleci/artifacts/auth-api/ && mv /home/circleci/project/auth-api/auth-api /home/circleci/artifacts/auth-api/auth-api
+      - store_artifacts:
+          path: ./auth-api/auth-api
+          destination: auth-api-artifac
+
   gather-and-store-artifacts:
     docker:
       - image: cimg/base:edge-20.04
@@ -76,10 +70,10 @@ jobs:
           command: mkdir -p /home/circleci/artifacts/todos-api && mv /home/circleci/project/todos-api /home/circleci/artifacts/todos-api/todos-api
       - run: 
           name: Compress Artifacts
-          command: tar -czvf /home/circleci/artifacts/all_artifacts.tar.gz /home/circleci/artifacts/
+          command: tar -czvf /home/circleci/artifacts/log-message-and-todos-artifact.tar.gz /home/circleci/artifacts/
       - store_artifacts:
-          path: /home/circleci/artifacts/all_artifacts.tar.gz
-          destination: all_artifacts.tar.gz
+          path: /home/circleci/artifacts/log-message-and-todos-artifact.tar.gz
+          destination: log-message-and-todos-artifact.tar.gz
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
