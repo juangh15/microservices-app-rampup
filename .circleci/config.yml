@@ -52,6 +52,9 @@ jobs:
       - run:
           name: Go Build
           command: cd ./auth-api && go build
+      - store_artifacts:
+          path: ./auth-api/auth-api
+          destination: auth-api-artifact
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
