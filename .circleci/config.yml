@@ -44,14 +44,14 @@ jobs:
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Go Init
-          command: go mod init ./auth-api
+          command: cd ./auth-api && go mod init github.com/bortizf/microservice-app-example/tree/master/auth-api
       # Then run your tests!
       - run:
           name: Go Tidy
-          command: go mod tidy ./auth-api
+          command: cd ./auth-api && go mod tidy 
       - run:
           name: Go Build
-          command: go build ./auth-api
+          command: cd ./auth-api && go build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
