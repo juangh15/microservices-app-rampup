@@ -64,15 +64,15 @@ jobs:
       - checkout
       - run:
           name: Get Log Message Processor Script
-          command: mkdir -p /home/circleci/artifacts/log-message-processor/ && mv /home/circleci/project/log-message-processor/main.py /home/circleci/artifacts/log-message-processor/main.py
+          command: mkdir -p artifacts/log-message-processor/ && mv /home/circleci/project/log-message-processor/main.py artifacts/log-message-processor/main.py
       - run:
           name: Get ToDos API Artifact
-          command: mkdir -p /home/circleci/artifacts/todos-api && mv /home/circleci/project/todos-api /home/circleci/artifacts/todos-api/todos-api
+          command: mkdir -p artifacts/todos-api && mv /home/circleci/project/todos-api artifacts/todos-api
       - run: 
           name: Compress Artifacts
-          command: tar -czvf /home/circleci/artifacts/log-message-and-todos-artifact.tar.gz /home/circleci/artifacts/
+          command: tar -czvf artifacts/log-message-and-todos-artifact.tar.gz artifacts/
       - store_artifacts:
-          path: /home/circleci/artifacts/log-message-and-todos-artifact.tar.gz
+          path: artifacts/log-message-and-todos-artifact.tar.gz
           destination: log-message-and-todos-artifact.tar.gz
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
