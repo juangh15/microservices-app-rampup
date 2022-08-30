@@ -83,7 +83,7 @@ jobs:
         - run:
             name: Send request to CD Pipeline
             command: |
-              curl -X POST https://circleci.com/api/v2/project/github/juangh15/deploy-microservices-app/pipeline \
+              curl -X POST https://circleci.com/api/v2/project/gh/juangh15/deploy-microservices-app/pipeline \
                 --header "Circle-Token: $CIRCLE_CD_TOKEN" \
                 --header "content-type: application/json" \
                 --data '{"branch":"circleci-project-setup"}'
