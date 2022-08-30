@@ -26,9 +26,9 @@ jobs:
       - run:
           name: Test
           command: mvn -f ./users-api test
-      - store_artifacts:
-          path: ./users-api/target/users-api-0.0.1-SNAPSHOT.jar
-          destination: users-api-artifact
+#      - store_artifacts:
+#          path: ./users-api/target/users-api-0.0.1-SNAPSHOT.jar
+#          destination: users-api-artifact
   build-and-test-auth-api:
     # These next lines define a Docker executor: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -52,9 +52,9 @@ jobs:
       - run:
           name: Go Build
           command: cd ./auth-api && go build
-      - store_artifacts:
-          path: ./auth-api/auth-api
-          destination: auth-api-artifac
+#      - store_artifacts:
+#          path: ./auth-api/auth-api
+#          destination: auth-api-artifac
 
   gather-and-store-artifacts:
     docker:
@@ -71,9 +71,22 @@ jobs:
       - run: 
           name: Compress Artifacts
           command: touch ./log-message-and-todos-artifact.tar.gz && tar -czvf ./log-message-and-todos-artifact.tar.gz ./artifacts
-      - store_artifacts:
-          path: ./log-message-and-todos-artifact.tar.gz
-          destination: log-message-and-todos-artifact.tar.gz
+#      - store_artifacts:
+#          path: ./log-message-and-todos-artifact.tar.gz
+#          destination: log-message-and-todos-artifact.tar.gz
+
+  trigger-cd-pipeline:
+      docker: 
+        - image: cimg/base:edge-20.04
+      resource_class: small
+      steps:
+        - run:
+            name: Send request to CD Pipeline
+            command: |
+              curl -X POST https://circleci.com/api/v2/project/github/juangh15/deploy-microservices-app/pipeline \
+                --header "Circle-Token: $CIRCLE_CD_TOKEN" \
+                --header "content-type: application/json" \
+                --data '{"branch":"circleci-project-setup"}'
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -83,4 +96,5 @@ workflows:
       - build-and-test-users-api
       - build-and-test-auth-api
       - gather-and-store-artifacts
+      - trigger-cd-pipeline
 
