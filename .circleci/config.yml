@@ -106,6 +106,7 @@ jobs:
               curl --request POST \
                 --url 'https://circleci.com/api/v2/project/gh/juangh15/deploy-microservices-app/pipeline' \
                 --header "Circle-Token: $CIRCLE_CD_USER_TOKEN" \
+                --header "content-type: application/json" \
                 --data '{"branch":"circleci-project-setup"}'
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
